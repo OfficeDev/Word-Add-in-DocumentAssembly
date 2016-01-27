@@ -5,8 +5,8 @@
   <Version>1.0.0.0</Version>
   <ProviderName>[Provider name]</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="WordAPIDocAssemblySample" />
-  <Description DefaultValue="WordAPIDocAssemblySample"/>
+  <DisplayName DefaultValue="Contoso Document Builder" />
+  <Description DefaultValue="An add-in for quickly assembling documents from pre-made templates."/>
   <Hosts>
     <Host Name="Document" />
   </Hosts>
