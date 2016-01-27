@@ -67,6 +67,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\App.css">
+      <DependentUpon>App.less</DependentUpon>
+    </Content>
+    <Content Include="App\App.min.css">
+      <DependentUpon>App.css</DependentUpon>
+    </Content>
     <Content Include="App\Home\Home.css">
       <DependentUpon>Home.less</DependentUpon>
     </Content>

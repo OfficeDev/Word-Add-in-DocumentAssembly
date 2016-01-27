@@ -22,8 +22,10 @@
             $('#search').click(search);
             $('#footer').click(insertFooter);
 
-            // Configure Fabric NavBar
+            // Configure Fabric NavBar & Dropdown
             $('.ms-NavBar').NavBar();
+            $('.ms-Dropdown').Dropdown();
+
             $('#teamBuilder').click(function showTb() { 
                 $('#tbPanel').show();                 
                 $('#sowPanel').hide(); 
