@@ -9,6 +9,9 @@
   /* Fixed header height */
   overflow: hidden;
   /* Disable scrollbars for header */
+  box-sizing: border-box;
+  outline: 2px solid red;
+  padding: 8px 15px;
 }
 #content-main {
   background: #fff;
@@ -26,6 +29,7 @@
   background-color: #ffffff;
   height: 40px;
   width: 40px;
+  margin-right: 5px;
   line-height: 40px;
   text-align: center;
 }
@@ -57,4 +61,45 @@
   right: 5px;
   top: 5px;
   cursor: pointer;
+}
+@media (min-width: 265px) {
+  .ms-NavBar-openMenu {
+    display: none;
+  }
+  .ms-NavBar-items {
+    display: block;
+    list-style: none;
+    margin: 0 7px 0 0;
+    padding: 0;
+  }
+  .ms-NavBar-chevronDown {
+    top: 3px;
+    right: 0;
+    float: none;
+    position: relative;
+  }
+  .ms-NavBar-item {
+    float: left;
+    margin-right: 20px;
+    font-size: 14px;
+    padding: 0;
+  }
+  .ms-NavBar-item:hover {
+    border-bottom: 2px solid #0078d7;
+    background-color: transparent;
+  }
+  .ms-NavBar-item.is-selected {
+    font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe WP Semibold', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+    border-bottom: 2px solid #0078d7;
+  }
+  .ms-NavBar-item.ms-NavBar-item--hasMenu:after {
+    position: relative;
+    top: 3px;
+    padding-top: 0;
+    right: auto;
+  }
+  .ms-NavBar-item.ms-NavBar-item--right {
+    float: right;
+    margin: 0 0 0 20px;
+  }
 }
