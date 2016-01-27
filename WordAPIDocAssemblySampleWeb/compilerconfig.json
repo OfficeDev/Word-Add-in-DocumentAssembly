@@ -2,5 +2,9 @@
   {
     "outputFile": "App/Home/Home.css",
     "inputFile": "App/Home/Home.less"
+  },
+  {
+    "outputFile": "App/App.css",
+    "inputFile": "App/App.less"
   }
 ]
