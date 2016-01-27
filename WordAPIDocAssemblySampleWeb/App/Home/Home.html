@@ -28,30 +28,28 @@
 </head>
 <body>
     <div id="content-header">
-        <div class="padding">
-            <h1 class="ms-font-xl ms-fontColor-white">
-                <i class="header-logo ms-Icon ms-Icon--page ms-fontColor-themePrimary"></i>
-                Contoso Document Builder
-            </h1>
-        </div>
+        <h1 class="ms-font-xl ms-fontColor-white">
+            <i class="header-logo ms-Icon ms-Icon--page ms-fontColor-themePrimary"></i>
+            Contoso Document Builder
+        </h1>
     </div>
-    <div id="content-main">
 
+    <div id="content-main">
         <div class="ms-NavBar">
             <div class="ms-NavBar-openMenu js-openMenu">
                 <i class="ms-Icon ms-Icon--menu"></i>
             </div>
             <ul class="ms-NavBar-items">
-                <li class="ms-NavBar-item" id="docGen">SOWBuilder</li>
-                <li class="ms-NavBar-item" id="teamBuilder">TeamBuilder</li>
+                <li class="ms-NavBar-item" id="docGen">Configure SOW</li>
+                <li class="ms-NavBar-item" id="teamBuilder">Configure Team</li>
             </ul>
         </div>
 
         <div class="padding">
-
             <div ng-app="TeamBuilder" id="tbPanel">
                 <div ng-controller="TeamBuilderCtrl" id="team">
-                    <h3>Project Details</h3>
+                    <h3 class="ms-font-xl">Project Details</h3>
+                    <h4 class="ms-font-m">Enter the number of hours for your project and select team roles, then click "Insert Team" to generate unique SmartArt for your document.</h4>
 
                     <div class="ms-TextField">
                         <label class="ms-Label">Total Hours</label>
