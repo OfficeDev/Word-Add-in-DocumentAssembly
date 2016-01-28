@@ -14,6 +14,7 @@
             // Hookup click events
             $('#set-data').click(setData);
             $('#insertSow').click(insertStartingDoc);
+            $('.js-insertSow').change(insertStartingDoc);
             $('#insertParagraphs').click(addParagraphs);
             $('#changePicture').click(changePic);
             $('#addContentControls').click(addContentControls);
@@ -26,15 +27,26 @@
             $('.ms-NavBar').NavBar();
             $('.ms-Dropdown').Dropdown();
 
+            $('#getStarted').click(function() {
+                $('#firstRunPanel').addClass('ms-u-slideUpOut20');
+
+                setTimeout(function() {
+                    $('#firstRunPanel').hide();
+                    $('#sowPanel').show().addClass('ms-u-slideRightIn40');
+                    $('.ms-NavBar').show().addClass('ms-u-slideDownIn20');
+                    $('#docGen').trigger('click');
+                }, 100);
+            });
+
             $('#teamBuilder').click(function showTb() { 
                 $('#tbPanel').show();                 
                 $('#sowPanel').hide(); 
             });
+
             $('#docGen').click(function showDg() { 
                 $('#tbPanel').hide();                     
                 $('#sowPanel').show(); 
             });
-            $('#docGen').trigger("click");
         });
     };
 
@@ -101,12 +113,14 @@
     /*
     /*****************************************************************************/    
     
+        // [jahnp] Disabling notifications for this demo since we don't have
+        // guidance for notifications.
     function handleSuccess() {
-        app.showNotification("Success", "Success");
+        // app.showNotification("Success", "Success");
     }
 
     function handleError(result) {
-        app.showNotification("Error", "ErrorCode = " + result.code + ", ErrorMessage = " + result.message);
+        // app.showNotification("Error", "ErrorCode = " + result.code + ", ErrorMessage = " + result.message);
     }
 
     /*****************************************************************************/
