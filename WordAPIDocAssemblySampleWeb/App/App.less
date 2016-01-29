@@ -3,12 +3,26 @@
 // --------------------------------------------------
 // Common app styles
 
-@import (reference) "../less/Fabric.less";
+@import (reference) "../OfficeUIFabric/less/Fabric.less";
+@import (reference) "../OfficeUIFabric/less/Fabric.Components.less";
 
 @header-height: 40px;
 
+// Reset default elements
+html,
+body {
+  .ms-font-m();
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  .ms-Link();
+}
+
+
 #firstRunPanel {
-    box-sizing: border-box;
+    .ms-u-borderBox();
     padding-top: 20px;
     padding-left: 10px;
 }
@@ -31,7 +45,6 @@
         padding: 0;
         margin: 0;
     }
-
 }
 
 .first-run-section-icon {
@@ -43,14 +56,14 @@
 #content-header {
     background: @ms-color-themePrimary;
     color: @ms-color-white;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: @header-height;
     line-height: @header-height - 2;
     overflow: hidden;
-    box-sizing: border-box;
+    .ms-u-borderBox;
     padding: 0 10px;
     vertical-align: middle;
 
@@ -119,7 +132,9 @@
 }
 
 .section-item {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    padding: 20px 0;
+    border-bottom: 1px solid @ms-color-neutralTertiaryAlt;
 }
 
 .section-title {
@@ -130,7 +145,12 @@
     margin-bottom: 10px;
 }
 
+.total-section {
+    border: 0;
+}
+
 // Fabric NavBar overrides
+
 .ms-NavBar-item {
     &:hover {
         .ms-Icon {
@@ -150,13 +170,6 @@
     padding: 0;
 }
 
-.ms-NavBar-chevronDown {
-    top: 3px;
-    right: 0;
-    float: none;
-    position: relative;
-}
-
 .ms-NavBar-item {
     float: left;
     margin-right: 20px;
@@ -165,13 +178,13 @@
 }
 
 .ms-NavBar-item:hover {
-    border-bottom: 2px solid #0078d7;
+    border-bottom: 2px solid @ms-color-themePrimary;
     background-color: transparent;
 }
 
 .ms-NavBar-item.is-selected {
-    font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe WP Semibold', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-    border-bottom: 2px solid #0078d7;
+    font-family: @ms-font-family-semibold;
+    border-bottom: 2px solid @ms-color-themePrimary;
 }
 
 .ms-NavBar-item.ms-NavBar-item--hasMenu:after {

@@ -1,4 +1,28 @@
-﻿#firstRunPanel {
+﻿.ms-Overlay--none {
+  visibility: hidden;
+}
+html,
+body {
+  color: #333333;
+  font-family: 'Segoe UI Regular WestEuropean', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+a {
+  color: #0078d7;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:hover,
+a:focus {
+  color: #004578;
+}
+a:active {
+  color: #0078d7;
+}
+#firstRunPanel {
   box-sizing: border-box;
   padding-top: 20px;
   padding-left: 10px;
@@ -27,7 +51,7 @@
 #content-header {
   background: #0078d7;
   color: #ffffff;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -96,13 +120,18 @@
   cursor: pointer;
 }
 .section-item {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding: 20px 0;
+  border-bottom: 1px solid #c8c8c8;
 }
 .section-title {
   margin-bottom: 5px;
 }
 .section-subtitle {
   margin-bottom: 10px;
+}
+.total-section {
+  border: 0;
 }
 .ms-NavBar-item:hover .ms-Icon {
   color: #0078d7;
@@ -115,12 +144,6 @@
   list-style: none;
   margin: 0 7px 0 0;
   padding: 0;
-}
-.ms-NavBar-chevronDown {
-  top: 3px;
-  right: 0;
-  float: none;
-  position: relative;
 }
 .ms-NavBar-item {
   float: left;
