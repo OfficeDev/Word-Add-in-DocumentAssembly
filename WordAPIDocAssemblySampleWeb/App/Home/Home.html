@@ -14,12 +14,22 @@
 
     <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js" type="text/javascript"></script>
 
+    <!-- Fabric CDN link -->
     <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.2.1/fabric.min.css">
     <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.2.1/fabric.components.min.css">
-    <script src="https://agave.azurewebsites.net/Fabric/components/NavBar/Jquery.NavBar.js"></script>
-    <script src="https://agave.azurewebsites.net/Fabric/components/DropDown/Jquery.DropDown.js"></script>
 
+    <!-- Individual Fabric components -->
+    <!--<link rel="stylesheet" href="../../OfficeUIFabric/components/Button/Button.min.css">
+    <link rel="stylesheet" href="../../OfficeUIFabric/components/Dropdown/Dropdown.min.css">
+    <link rel="stylesheet" href="../../OfficeUIFabric/components/NavBar/NavBar.min.css">
+    <link rel="stylesheet" href="../../OfficeUIFabric/components/TextField/TextField.min.css">
+    <link rel="stylesheet" href="../../OfficeUIFabric/components/Overlay/Overlay.min.css">--> 
 
+    <!-- Fabric demonstrational JS -->
+    <script src="../../OfficeUIFabric/components/NavBar/Jquery.NavBar.js" type="text/javascript"></script>
+    <script src="../../OfficeUIFabric/components/Dropdown/Jquery.Dropdown.js" type="text/javascript"></script>
+
+    <!-- App-specific CSS and JS -->
     <link href="../App.css" rel="stylesheet" type="text/css" />
     <script src="../App.js" type="text/javascript"></script>
 
@@ -29,11 +39,11 @@
 <body>
     <div id="content-header">
         <i class="header-logo ms-Icon ms-Icon--page ms-fontSize-m ms-fontColor-themePrimary"></i>
-        <h1 class="ms-font-l ms-fontColor-white">Contoso</h1>
+        <h1 class="ms-font-l ms-fontColor-white">Contoso</h1> 
     </div>
 
     <div id="content-main">
-        <div class="ms-NavBar" style="display: none;">
+        <div class="ms-NavBar" style="display: none; position: static;">
             <div class="ms-NavBar-openMenu js-openMenu">
                 <i class="ms-Icon ms-Icon--menu"></i>
             </div>
@@ -69,11 +79,102 @@
                 </div>
             </div>
 
+            <!-- Document Assembly panel -->
+            <div id="sowPanel" style="display: none;">
+                <h3 class="ms-font-xl">Configure document</h3>
+                <h4 class="ms-font-m">Select a template feature below to insert it into your document.</h4>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Insert template</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Insert initial content from a previous Statement of Work.</div>
+
+                    <div class="ms-Dropdown">
+                        <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                        <select class="ms-Dropdown-select js-insertSow">
+                            <option value="default">Choose a template...</option>
+                            <option value="sow">Statement of work</option>
+                            <option value="po">Purchase order</option>
+                            <option value="contract">Simple contract</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add paragraphs</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Insert additional content from a database of boilerplate paragraphs.</div>
+
+                    <button class="ms-Button ms-Button--command" id="insertParagraphs">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add paragraph</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change logo</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Update the company logo with official image from corporate repository.</div>
+
+                    <button class="ms-Button ms-Button--command" id="changePicture">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
+                        <span class="ms-Button-label">Change logo</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add customer content controls</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Search for 'Contoso' and insert content controls to hold the customer name.</div>
+
+                    <button class="ms-Button ms-Button--command" id="addContentControls">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add content controls</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change customer</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Set the customer name to 'Fabrikam' using content controls.</div>
+
+                    <button class="ms-Button ms-Button--command" id="addContentControls">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
+                        <span class="ms-Button-label">Change customer</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Insert file</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Reuse content by merging in another document.</div>
+
+                    <button class="ms-Button ms-Button--command" id="insertFile">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Insert file</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Search with wildcards</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Use wildcard search to find all the currency amounts in the document.</div>
+
+                    <button class="ms-Button ms-Button--command" id="search">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--search"></i>
+                        <span class="ms-Button-label">Search</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add footer</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Add a footer to the document with the page number in it.</div>
+
+                    <button class="ms-Button ms-Button--command" id="footer">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add footer</span>
+                    </button>
+                </div>
+            </div>
+
             <!-- SmartArt panel -->
             <div ng-app="TeamBuilder" id="tbPanel" style="display: none;">
                 <div ng-controller="TeamBuilderCtrl" id="team">
                     <h3 class="ms-font-xl">Configure Project Details</h3>
-                    <h4 class="ms-font-m">Enter the number of hours for your project and select roles for your team, then click "Insert Team" to generate unique SmartArt for your document.</h4>
+                    <h4 class="ms-font-m">Enter the number of hours for your project and select roles for your team, then click "Insert SmartArt" to generate unique SmartArt for your document.</h4>
 
                     <div class="section-item">
                         <div class="ms-TextField">
@@ -127,106 +228,16 @@
                         <span class="ms-font-s ms-fontColor-neutralSecondary">Designs and implements back-end solutions for the project.</span>
                     </div>
 
-                    <div class="section-item">
+                    <div class="section-item total-section">
                         <div class="ms-font-l"><span class="ms-fontWeight-light">Total:</span> <span class="ms-fontWeight-semibold">${{total()}}</span></div>
                     </div>
                 </div>
 
                 <button id="set-data" class="ms-Button ms-Button--primary">
-                    <span class="ms-Button-label">Insert Team</span>
+                    <span class="ms-Button-label">Insert SmartArt</span>
                 </button>
             </div>
 
-            <!-- Document Assembly panel -->
-            <div id="sowPanel" style="display: none;">
-                <h3 class="ms-font-xl">Configure document</h3>
-                <h4 class="ms-font-m">Select a template feature below to insert it into your document.</h4>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Insert template</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Insert initial content from a previous Statement of Work.</div>
-
-                    <div class="ms-Dropdown">
-                        <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
-                        <select class="ms-Dropdown-select js-insertSow">
-                            <option value="default">Choose a template...</option>
-                            <option value="sow">Statement of work</option>
-                            <option value="po">Purchase order</option>
-                            <option value="contract">Simple contract</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add paragraphs</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Add content from a database of boilerplate paragraphs.</div>
-
-                    <button class="ms-Button ms-Button--command" id="insertParagraphs">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
-                        <span class="ms-Button-label">Add paragraph</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change logo</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Update the company logo with official image from corporate repository.</div>
-
-                    <button class="ms-Button ms-Button--command" id="changePicture">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
-                        <span class="ms-Button-label">Change logo</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add customer content controls</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Search for 'Contoso' and insert content controls to hold the customer name.</div>
-
-                    <button class="ms-Button ms-Button--command" id="addContentControls">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
-                        <span class="ms-Button-label">Change logo</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change customer</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Set the customer name to 'Fabrikam' using content controls.</div>
-
-                    <button class="ms-Button ms-Button--command" id="addContentControls">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
-                        <span class="ms-Button-label">Change customer</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Insert file</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Reuse content by merging in another document.</div>
-
-                    <button class="ms-Button ms-Button--command" id="insertFile">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
-                        <span class="ms-Button-label">Insert file</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Search with wildcards</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Use wildcard search to find all the currency amounts in the document.</div>
-
-                    <button class="ms-Button ms-Button--command" id="search">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--search"></i>
-                        <span class="ms-Button-label">Search</span>
-                    </button>
-                </div>
-
-                <div class="section-item">
-                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add footer</div>
-                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Add a footer to the document with the page number in it.</div>
-
-                    <button class="ms-Button ms-Button--command" id="footer">
-                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
-                        <span class="ms-Button-label">Add footer</span>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
 </body>
