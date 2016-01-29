@@ -32,20 +32,28 @@
 
                 setTimeout(function() {
                     $('#firstRunPanel').hide();
+                    $('#sowPanel').show();
+                    $('.ms-NavBar').show();
                     $('#sowPanel').show().addClass('ms-u-slideRightIn40');
                     $('.ms-NavBar').show().addClass('ms-u-slideDownIn20');
                     $('#docGen').trigger('click');
+
+                    // Immediately remove the animation class from the NavBar since 
+                    // the transform it applies affect layering of other elements.
+                    setTimeout(function() {
+                        $('.ms-NavBar').removeClass('ms-u-slideDownIn20');
+                    }, 250);
                 }, 100);
             });
 
             $('#teamBuilder').click(function showTb() { 
-                $('#tbPanel').show();                 
-                $('#sowPanel').hide(); 
+                $('#tbPanel').show().addClass('ms-u-slideLeftIn40');                 
+                $('#sowPanel').hide().removeClass('ms-u-slideRightIn40 ms-u-slideLeftIn40'); 
             });
 
             $('#docGen').click(function showDg() { 
-                $('#tbPanel').hide();                     
-                $('#sowPanel').show(); 
+                $('#tbPanel').hide().removeClass('ms-u-slideLeftIn40');                     
+                $('#sowPanel').show().addClass('ms-u-slideRightIn40'); 
             });
         });
     };
