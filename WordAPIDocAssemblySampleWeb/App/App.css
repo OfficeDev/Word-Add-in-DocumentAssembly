@@ -133,39 +133,50 @@ a:active {
 .total-section {
   border: 0;
 }
-.ms-NavBar-item:hover .ms-Icon {
-  color: #0078d7;
+/*.ms-NavBar-item {
+    &:hover {
+        .ms-Icon {
+            color: @ms-color-themePrimary;
+        }
+    }
 }
+
 .ms-NavBar-openMenu {
-  display: none;
+    display: none;
 }
+
 .ms-NavBar-items {
-  display: block;
-  list-style: none;
-  margin: 0 7px 0 0;
-  padding: 0;
+    display: block;
+    list-style: none;
+    margin: 0 7px 0 0;
+    padding: 0;
 }
+
 .ms-NavBar-item {
-  float: left;
-  margin-right: 20px;
-  font-size: 14px;
-  padding: 0;
+    float: left;
+    margin-right: 20px;
+    font-size: 14px;
+    padding: 0;
 }
+
 .ms-NavBar-item:hover {
-  border-bottom: 2px solid #0078d7;
-  background-color: transparent;
+    border-bottom: 2px solid @ms-color-themePrimary;
+    background-color: transparent;
 }
+
 .ms-NavBar-item.is-selected {
-  font-family: 'Segoe UI Semibold WestEuropean', 'Segoe UI Semibold', 'Segoe WP Semibold', 'Segoe UI', 'Segoe WP', Tahoma, Arial, sans-serif;
-  border-bottom: 2px solid #0078d7;
+    font-family: @ms-font-family-semibold;
+    border-bottom: 2px solid @ms-color-themePrimary;
 }
+
 .ms-NavBar-item.ms-NavBar-item--hasMenu:after {
-  position: relative;
-  top: 3px;
-  padding-top: 0;
-  right: auto;
+    position: relative;
+    top: 3px;
+    padding-top: 0;
+    right: auto;
 }
+
 .ms-NavBar-item.ms-NavBar-item--right {
-  float: right;
-  margin: 0 0 0 20px;
-}
+    float: right;
+    margin: 0 0 0 20px;
+}*/
