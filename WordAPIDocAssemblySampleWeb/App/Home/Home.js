@@ -51,15 +51,10 @@
 
             $('#getStarted').trigger('click');
 
-
-
             $('#teamBuilder').click(function showTb() {
                 $('#tbPanel').show().addClass('ms-u-slideLeftIn40');
                 $('#sowPanel').hide().removeClass('ms-u-slideRightIn40 ms-u-slideLeftIn40');
             });
-
-
-
 
             $('#docGen').click(function showDg() {
                 $('#tbPanel').hide().removeClass('ms-u-slideLeftIn40');
@@ -70,9 +65,6 @@
                     $('#teamBuilder').trigger('click');
                 }
             });
-
-
-
         });
     };
 })();
@@ -149,14 +141,13 @@ function assignTeam(t) {
 /*
 /*****************************************************************************/
 
-// [jahnp] Disabling notifications for this demo since we don't have
-// guidance for notifications.
+// Notificiations in the task pane.
 function handleSuccess() {
-    // app.showNotification("Success", "Success");
+    app.showNotification("Success", "Success");
 }
 
 function handleError(result) {
-    // app.showNotification("Error", "ErrorCode = " + result.code + ", ErrorMessage = " + result.message);
+    app.showNotification("Error", "ErrorCode = " + result.code + ", ErrorMessage = " + result.message);
 }
 
 /*****************************************************************************/
