@@ -1,4 +1,9 @@
-﻿/* Common app functionality */
+﻿/*
+ * Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+/* Common app functionality */
 
 var app = (function () {
     "use strict";

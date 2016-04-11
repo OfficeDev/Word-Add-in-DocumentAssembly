@@ -1,90 +1,222 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <!-- Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
  See LICENSE in the project root for license information -->
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <title></title>
-    <script src="../../Scripts/jquery-1.9.1.js" type="text/javascript"></script>
-
-    <script src="https://code.angularjs.org/1.3.9/angular.js"></script>
+    <title>Word Document Assembly Sample</title>
 
     <link href="../../Content/Office.css" rel="stylesheet" type="text/css" />
 
+    <script src="../../Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+    <script src="https://code.angularjs.org/1.3.9/angular.js"></script>
     <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js" type="text/javascript"></script>
       
-    <link rel="stylesheet" href="https://agave.azurewebsites.net/Fabric/css/fabric.min.css">
-    <link rel="stylesheet" href="https://agave.azurewebsites.net/Fabric/css/fabric.components.css">
-    <script src="https://agave.azurewebsites.net/Fabric/components/NavBar/Jquery.NavBar.js"></script>
+    <!-- Fabric CDN link -->
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.2.1/fabric.min.css">
+    <link rel="stylesheet" href="https://appsforoffice.microsoft.com/fabric/1.2.1/fabric.components.min.css">
 
+    <!-- Fabric demonstrational JS -->
+    <script src="../../OfficeUIFabric/components/NavBar/Jquery.NavBar.js" type="text/javascript"></script>
+    <script src="../../OfficeUIFabric/components/Dropdown/Jquery.Dropdown.js" type="text/javascript"></script>
 
+    <!-- App-specific CSS and JS -->
     <link href="../App.css" rel="stylesheet" type="text/css" />
     <script src="../App.js" type="text/javascript"></script>
-
     <link href="Home.css" rel="stylesheet" type="text/css" />
     <script src="Home.js" type="text/javascript"></script>
+
 </head>
 <body>
     <div id="content-header">
-        <div class="padding">
-            <h1 class="ms-font-xl ms-fontColor-white">Welcome</h1>
-        </div>
+        <i class="header-logo ms-Icon ms-Icon--page ms-fontSize-m ms-fontColor-themePrimary"></i>
+        <h1 class="ms-font-l ms-fontColor-white">Contoso</h1> 
     </div>
-    <div id="content-main">
 
-        <div class="ms-NavBar">
+    <div id="content-main">
+        <div class="ms-NavBar" style="display: none; position: static;">
             <div class="ms-NavBar-openMenu js-openMenu">
                 <i class="ms-Icon ms-Icon--menu"></i>
             </div>
+            <div class="ms-Overlay"></div>
             <ul class="ms-NavBar-items">
-                <li class="ms-NavBar-item" id="docGen">SOWBuilder</li>
-                <li class="ms-NavBar-item" id="teamBuilder">TeamBuilder</li>
+                <li class="ms-NavBar-item" id="docGen"><i class="ms-Icon ms-Icon--document ms-fontColor-themePrimary"></i> Document</li>
+                <li class="ms-NavBar-item" id="teamBuilder"><i class="ms-Icon ms-Icon--chart ms-fontColor-themePrimary"></i> Project Details</li>
+                <li class="ms-NavBar-item ms-NavBar-item--right" id="settings"><i class="ms-Icon ms-Icon--gear ms-fontSize-xl"></i></li>
             </ul>
         </div>
 
         <div class="padding">
+            <!-- First Run Experience -->
+            <div id="firstRunPanel" class="ms-u-fadeIn200">
+                <h1 class="first-run-title ms-font-l ms-fontWeight-light">HLG prod js: An add-in to help you build great-looking, full-featured documents quickly.</h1>
 
-            <div ng-app="TeamBuilder" id="tbPanel">
-                <div ng-controller="TeamBuilderCtrl" id="team">
-                    <h3>Project Details</h3>
-                    <p>Total Hours: <input type="text" ng-model="hours" /></p>
-                    Lead: <select ng-model="lead" ng-options="opt as opt.name for opt in listItems"></select> <br />
-                    UI Designer: <select ng-model="ui" ng-options="opt as opt.name for opt in listItems"></select><br />
-                    Web Engineer: <select ng-model="eng1" ng-options="opt as opt.name for opt in listItems"></select><br />
-                    DB Engineer: <select ng-model="eng2" ng-options="opt as opt.name for opt in listItems"></select><br />
-                    <h2>Total: $ {{total()}}.</h2>
+                <div class="first-run-section">
+                    <i class="first-run-section-icon ms-Icon ms-Icon--document ms-fontColor-themePrimary ms-fontSize-su"></i>
+                    <h2 class="ms-font-xl ms-fontWeight-light">Compose your document</h2>
+                    <p class="ms-font-m ms-fontWeight-semilight">Select template features to make it quick and easy to assemble statements of work.</p>
                 </div>
-                <button id="set-data">Insert Team</button><br />
+
+                <div class="first-run-section">
+                    <i class="first-run-section-icon ms-Icon ms-Icon--chart ms-fontColor-themePrimary ms-fontSize-su"></i>
+                    <h2 class="ms-font-xl ms-fontWeight-light">Build custom SmartArt</h2>
+                    <p class="ms-font-m ms-fontWeight-semilight">Create custom SmartArt elements uniquely tailored to your team and project needs.</p>
+                </div>           
+                  
+                <div class="first-run-section">
+                    <button id="getStarted" class="ms-Button ms-Button--primary">
+                        <span class="ms-Button-label">Get started</span>
+                    </button>
+                </div>
             </div>
 
-            <div id="sowPanel" class="display:none">
+            <!-- Document Assembly panel -->
+            <div id="sowPanel" style="display: none;">
+                <i class="ms-Icon ms-Icon--documents" aria-hidden="true"></i>
+                <h3 class="ms-font-xl">Configure document</h3>
+                <h4 class="ms-font-m">Select a template feature below to insert it into your document.</h4>
 
-                <button class="ms-Button ms-Button--compound" id="insertSow">
-                    <span class="ms-Button-label">1. Insert Template</span><span class="ms-Button-description">Insert initial content from a previous Statement of Work</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="insertParagraphs">
-                    <span class="ms-Button-label">2. Add Paragraphs</span><span class="ms-Button-description">Add content from a database of boilerplate paragraphs</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="changePicture">
-                    <span class="ms-Button-label">3. Change Logo</span><span class="ms-Button-description">Update the company logo with official image from corporate repository</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="addContentControls">
-                    <span class="ms-Button-label">4. Add Customer Content Controls</span><span class="ms-Button-description">Search for 'Contoso' and insert content controls to hold the customer name</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="changeCustomer">
-                    <span class="ms-Button-label">5. Change Customer</span><span class="ms-Button-description">Set the customer name to 'Fabrikam' using content controls</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="insertFile">
-                    <span class="ms-Button-label">6. Insert File</span><span class="ms-Button-description">Reuse content by merging in another document</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="search">
-                    <span class="ms-Button-label">7. Search with Wildcards</span><span class="ms-Button-description">Use wildcard search to find all the currency amounts in the document</span>
-                </button><br><br>
-                <button class="ms-Button ms-Button--compound" id="footer">
-                    <span class="ms-Button-label">8. Insert Footer</span><span class="ms-Button-description">Add a footer to the document with the page number in it</span>
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add paragraphs</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Insert additional content from a database of boilerplate paragraphs.</div>
+
+                    <button class="ms-Button ms-Button--command" id="insertParagraphs">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add paragraph</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change logo</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Update the company logo with official image from corporate repository.</div>
+
+                    <button class="ms-Button ms-Button--command" id="changePicture">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
+                        <span class="ms-Button-label">Change logo</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add customer content controls</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Search for 'Contoso' and insert content controls to hold the customer name.</div>
+
+                    <button class="ms-Button ms-Button--command" id="addContentControls">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add content controls</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Change customer</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Set the customer name to 'Fabrikam' using content controls.</div>
+
+                    <button class="ms-Button ms-Button--command" id="addContentControls">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--pencil"></i>
+                        <span class="ms-Button-label">Change customer</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Insert file</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Reuse content by merging in another document.</div>
+
+                    <button class="ms-Button ms-Button--command" id="insertFile">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Insert file</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Search with wildcards</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Use wildcard search to find all the currency amounts in the document.</div>
+
+                    <button class="ms-Button ms-Button--command" id="search">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--search"></i>
+                        <span class="ms-Button-label">Search</span>
+                    </button>
+                </div>
+
+                <div class="section-item">
+                    <div class="section-title ms-font-l ms-fontWeight-light ms-fontColor-themePrimary">Add footer</div>
+                    <div class="section-subtitle ms-font-s ms-fontColor-neutralSecondary">Add a footer to the document with the page number in it.</div>
+
+                    <button class="ms-Button ms-Button--command" id="footer">
+                        <i class="ms-Button-icon ms-Icon ms-Icon--plus"></i>
+                        <span class="ms-Button-label">Add footer</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- SmartArt panel -->
+            <div ng-app="TeamBuilder" id="tbPanel" style="display: none;">
+                <div ng-controller="TeamBuilderCtrl" id="team">
+                    <i class="ms-Icon ms-Icon--org" aria-hidden="true"></i>
+                    <h3 class="ms-font-xl">Enter Project Details</h3>
+                    <h4 class="ms-font-m">Enter the number of hours for your project and select roles for your team, then click "Insert SmartArt" to generate unique SmartArt for your document.</h4>
+
+                    <div class="section-item">
+                        <div class="ms-TextField">
+                            <label class="ms-Label">Total Hours</label>
+                            <input class="ms-TextField-field" ng-model="hours">
+                        </div>
+                    </div>
+
+                    <div class="section-item">
+                        <span class="ms-Label">Lead</span>
+
+                        <div class="ms-Dropdown">
+                            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                            <select class="ms-Dropdown-select" ng-model="lead" ng-options="opt as opt.name for opt in listItems"></select>
+                        </div>
+
+                        <span class="ms-font-s ms-fontColor-neutralSecondary">The team lead for the project. Manages commitments, timelines, and deliverables.</span>
+                    </div>
+
+                    <div class="section-item">
+                        <span class="ms-Label">UI Designer</span>
+
+                        <div class="ms-Dropdown">
+                            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                            <select class="ms-Dropdown-select" ng-model="ui" ng-options="opt as opt.name for opt in listItems"></select>
+                        </div>
+
+                        <span class="ms-font-s ms-fontColor-neutralSecondary">The visual and UX/UI designer. Wireframes UI concepts and creates high-fidelity mockups.</span>
+
+                    </div>
+
+                    <div class="section-item">
+                        <span class="ms-Label">Web Engineer</span>
+
+                        <div class="ms-Dropdown">
+                            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                            <select class="ms-Dropdown-select" ng-model="eng1" ng-options="opt as opt.name for opt in listItems"></select>
+                        </div>
+
+                        <span class="ms-font-s ms-fontColor-neutralSecondary">Builds front-end experiences and middle-tier components from the UI Designer’s mockups.</span>
+                    </div>
+
+                    <div class="section-item">
+                        <span class="ms-Label">Database Designer</span>
+
+                        <div class="ms-Dropdown">
+                            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--caretDown"></i>
+                            <select class="ms-Dropdown-select" ng-model="eng2" ng-options="opt as opt.name for opt in listItems"></select>
+                        </div>
+
+                        <span class="ms-font-s ms-fontColor-neutralSecondary">Designs and implements back-end solutions for the project.</span>
+                    </div>
+
+                    <div class="section-item total-section">
+                        <div class="ms-font-l"><span class="ms-fontWeight-light">Total:</span> <span class="ms-fontWeight-semibold">${{total()}}</span></div>
+                    </div>
+                </div>
+
+                <button id="set-data" class="ms-Button ms-Button--primary">
+                    <span class="ms-Button-label">Insert SmartArt</span>
                 </button>
             </div>
+
         </div>
     </div>
 </body>
