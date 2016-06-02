@@ -196,58 +196,41 @@
     // change when the insertPicture method is added to the InlinePicture object.
     function changePic() {
 
-        // The strategy to change the pic:
-        // a. I will grab the first image (which is the only one in the sample by accesing the inlinePictures collection
-        // b. Then I will wrap the image with a content control.
-        // c. Then I will get the paragraphs inside the content control and insert a new picture.
-        Word.run(function (ctx) {
-            
-            // Queue a command to get all of the inline pcitures in the document..
-            // Create a proxy inline pictures collection object.        
-            var pics = ctx.document.body.inlinePictures;
-            
-            // Queue a command to load all of the properties on the inline pictures.
-            ctx.load(pics);
-            
-            // Synchronize the document state by executing the queued commands,
-            // and returning a promise to indicate task completion.             
-            return ctx.sync().then(function () {
+          // my strategy to change the pic here is the following
+        //a. i will grab the first image (which is the only one in the sample :) by accesing the inlinePictures collection
+        //b. then i will wrap the image with a content control.
+        //c. then i will get the paragrpahs inside the content control and insert a new pictuer
 
-                // Queue a command to wrap the first inline picture with a content control. 
-                // Create a content control proxy object.
-                var contentControl = pics.items[0].insertContentControl();
-                
-                // Queue a command to insert a paragraph into the content control.
-                contentControl.insertParagraph(" ");  
-                
-                // Create a proxy paragraph collection from the paragraphs in the content control.
-                var pars = contentControl.paragraphs;
-                
-                // Queue a command to load all of the properties on the paragraphs collection.
-                ctx.load(pars);
-                
-                // Synchronize the document state by executing the queued commands,
-                // and returning a promise to indicate task completion.       
-                return ctx.sync().then(function () {
-                    
-                    var mybase64 = getImageAsBase64();
+        // my strategy to change the pic here is the following
+        //a. will get the collection of images within the body.
+        //b. will grab the first image within the collection and replace it with a new image.
 
-                    // Queue a command to insert an inline picture into the first paragraph.
-                    var myPic = pars.items[0].insertInlinePictureFromBase64(mybase64,"start");
-                    
-                    // Queue a command to delete the content control.
-                    contentControl.delete(false);
-                })       
-                // Synchronize the document state by executing the queued commands.
-                .then(ctx.sync)
+        //this example is using methods shipped on the 1.2 requirement set. specificlaly the insertInlinePicture method supported on the inlinePicture object to replace the image.....
+        if (Office.context.requirements.isSetSupported("WordApi", "1.2")) {
+            Word.run(function (context) {
+                // gets the inlinePictures collection for the document.
+                var pics = context.document.body.inlinePictures;
+                context.load(pics);
+                return context.sync()
+                    .then(function () {
+                        var mybase64 = getImageAsBase64();
+                        pics.items[0].insertInlinePictureFromBase64(mybase64, "replace");
+                        return context.sync()
+                            .then(function () {
+                                showNotification("Task Complete!");
+                            })
+                    })
             })
-            .then(function () {
-                handleSuccess();
+            .catch(function (myError) {
+                //otherwise we handle the exception here!
+                showNotification("Error", myError.message);
             })
-            .catch(function (error) {
-                handleError(error);
-            })
-        });
+        }
+        else {
+            showNotification("Error. This functionality requires Word with at least January update!! (check  builds 6741+)");
+        }
+         
+
     }
     
     // Using the WordJS API. Search the document for instances of the string "Contoso". Change the font of 
