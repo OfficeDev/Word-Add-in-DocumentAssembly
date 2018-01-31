@@ -1,0 +1,19 @@
+### YamlMime:Sample
+sample:
+- name: Document assembly Word add-in sample
+  path: ''
+  description: This Word add-in shows how to Use JavaScript to insert content from a template, add boilerplate text, insert an image, insert footers, and other Word customizations.
+  readme: ''
+  generateZip: FALSE
+  isLive: TRUE
+  technologies:
+  - Office Add-in
+  azureDeploy: ''
+  author: JuaneloJuanelo
+  platforms: []
+  languages:
+  - JavaScript
+  extensions:
+    products:
+    - Word
+    scenarios: []
